@@ -1,10 +1,13 @@
 package com.training;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 import com.training.bean.OperatorDemo;
+import com.training.config.MyConfiguration;
+import com.training.interfaces.Operator;
 
 
 public class Client1
@@ -13,15 +16,15 @@ public class Client1
     {
         
     	//load the context 
-    	ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
+    	ApplicationContext context = new AnnotationConfigApplicationContext(MyConfiguration.class);
     	
-    	OperatorDemo operatorDemo = (OperatorDemo) context.getBean("demo");
+    	OperatorDemo operatorDemo = (OperatorDemo) context.getBean(OperatorDemo.class);
     	
     	System.out.println(operatorDemo.getResult(12, 13));
-    	System.out.println(operatorDemo.hashCode());
     	
-    	OperatorDemo operatorDemo1 = (OperatorDemo) context.getBean("demo");
-        
-    	System.out.println(operatorDemo1.hashCode());
+    
+    	
+    	
+    
     }
 }
