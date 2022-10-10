@@ -1,11 +1,3 @@
 INDEX VERSION 1.131+D:\git_material\springboottraining\.metadata\.plugins\org.eclipse.jdt.core
-4031068524.index
-4060703458.index
-1695387637.index
-734501808.index
-1867311711.index
-184280790.index
-1414367934.index
-1503694781.index
-453471924.index
+3760795655.index
 1087717859.index
