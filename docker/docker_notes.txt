@@ -1,6 +1,6 @@
 
 
-create a jar of your project
+
 
 create a docker file - dockerfile
 Dockerfile
@@ -9,6 +9,8 @@ FROM openjdk:latest
 ADD target/BookProducerService-0.0.1-SNAPSHOT.jar app.jar
 ENTRYPOINT ["java","-jar","app.jar"]
 EXPOSE 8082
+
+create a jar of your project
 
 docker -v
 docker login

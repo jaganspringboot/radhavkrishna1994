@@ -13,29 +13,23 @@ import org.springframework.stereotype.Repository;
 import com.training.model.Book;
 
 @Repository
-public interface BookRepo extends JpaRepository<Book, Long>
-{
-	//books based on isbn
-	Book findByIsbn(Long isbn);
+public interface BookRepo extends JpaRepository<Book, Long>{
+
+	//find books based on title
 	
-	//list of books based on title
-	List<Book> findByTitleLike(String title);
+	public List<Book> findByTitle(String title);
 	
-	//books that are priced above 100 inr
 	
-	List<Book> findByPriceGreaterThan(Double price);
+	public List<Book> findByTitleLike(String titlePattern);
 	
-	//query
-	@Query("from Book b where b.price > :price")
-	List<Book> getBooksGtPrice(@Param("price") Double price);
+	@Query("from Book b where b.title like :titlepattern")
+	public List<Book> getBooksTitlePattern(@Param("titlepattern") String titlePattern);
 	
-	//update
 	
-	//update stock of books by 50 of all those whose stock is < 120
-	
+	// update stock of books by newstock based on titlepattern
 	@Transactional
 	@Modifying
-	@Query("update Book b set b.stock=b.stock+:newstock where b.stock<:oldstock")
-	int updateStock(@Param("newstock") Long newStock,@Param("oldstock") Long oldStock);
-	
+	@Query("update Book b set b.stock=b.stock + :newstock where b.title like :titlepattern")
+	public int updateBooksStockTitle(@Param("titlepattern") String titlePattern
+			,@Param("newstock") Long newStock);
 }

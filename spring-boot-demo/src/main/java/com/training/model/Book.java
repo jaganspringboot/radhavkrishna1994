@@ -1,26 +1,28 @@
 package com.training.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.springframework.boot.context.properties.ConstructorBinding;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 @Entity
-@Table(name="book")
+@Table(name="books")
 public class Book {
 	@Id
 	private Long isbn;
+	
+	@Column(name="title",length = 100,nullable = false)
 	private String title;
+	
 	private Double price;
 	private Long stock;
-	
 
 }

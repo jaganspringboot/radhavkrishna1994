@@ -5,14 +5,14 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class MyConfiguration {
-	
+
 	@Value("${message}")
 	private String message;
 
 	public String getMessage() {
 		return message;
 	}
-	
-	
+
+
 
 }

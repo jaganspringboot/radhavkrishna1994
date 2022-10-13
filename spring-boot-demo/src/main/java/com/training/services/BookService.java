@@ -6,31 +6,15 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.training.interfaces.BookInterface;
+import com.training.interfaces.BookServiceI;
 import com.training.model.Book;
 import com.training.repo.BookRepo;
 
 @Service
-public class BookService implements BookInterface{
-
+public class BookService implements BookServiceI{
+	
 	@Autowired
 	private BookRepo bookRepo;
-	
-	@Override
-	public List<Book> findAll() {
-		
-		return bookRepo.findAll();
-	}
-
-	@Override
-	public Book findBook(Long isbn) {
-		
-		Optional<Book> bookFound = bookRepo.findById(isbn);
-		if(bookFound.isPresent())
-		return bookFound.get();
-		else
-			return null;
-	}
 
 	@Override
 	public Book addBook(Book book) {
@@ -39,28 +23,48 @@ public class BookService implements BookInterface{
 	}
 
 	@Override
-	public Book deleteBook(Long isbn) {
+	public List<Book> getBooks() {
 		
-		Optional<Book> bookFound = bookRepo.findById(isbn);
-		if(bookFound.isPresent())
-		{
-			Book book = bookFound.get();
-			bookRepo.delete(book);
-			return book;
-		}
-		return null;
+		return bookRepo.findAll();
+	}
+
+	@Override
+	public Book getBook(Long isbn) {
+		
+		Optional<Book> opBook = bookRepo.findById(isbn);
+		if(opBook.isPresent())
+		return opBook.get();
+		else
+			return null;
+	}
+
+	@Override
+	public Book deleteBook(Long isbn) {
+		Book book = getBook(isbn);
+		if(book!=null)
+		bookRepo.delete(book);
+		return book;
 	}
 
 	@Override
 	public Book updateBook(Long isbn, Long newStock) {
-		Optional<Book> bookFound = bookRepo.findById(isbn);
-		if(bookFound.isPresent())
+		Book book = getBook(isbn);
+		if(book!=null)
 		{
-			Book book = bookFound.get();
 			book.setStock(book.getStock()+newStock);
 			bookRepo.save(book);
 		}
-		return null;
+		return book;
 	}
+
+	@Override
+	public List<Book> findByTitle(String title) {
+		// TODO Auto-generated method stub
+		return bookRepo.findByTitle(title);
+	}
+	
+	
+	
+	
 
 }
